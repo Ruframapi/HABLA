@@ -1,0 +1,34 @@
+Traceback (most recent call last):
+  File "main.py", line 13, in <module>
+    import torch
+  File "/usr/local/lib/python3.7/dist-packages/torch/__init__.py", line 811, in <module>
+    from .functional import *  # noqa: F403
+  File "/usr/local/lib/python3.7/dist-packages/torch/functional.py", line 7, in <module>
+    import torch.nn.functional as F
+  File "/usr/local/lib/python3.7/dist-packages/torch/nn/__init__.py", line 1, in <module>
+    from .modules import *  # noqa: F403
+  File "/usr/local/lib/python3.7/dist-packages/torch/nn/modules/__init__.py", line 2, in <module>
+    from .linear import Identity, Linear, Bilinear, LazyLinear
+  File "/usr/local/lib/python3.7/dist-packages/torch/nn/modules/linear.py", line 7, in <module>
+    from .. import functional as F
+  File "/usr/local/lib/python3.7/dist-packages/torch/nn/functional.py", line 3656, in <module>
+    def upsample(input: Tensor, size: Optional[int] = None, scale_factor: Optional[float] = None, mode: str = "nearest", align_corners: Optional[bool] = None) -> Tensor:  # noqa: F811
+  File "/usr/local/lib/python3.7/dist-packages/torch/_jit_internal.py", line 769, in _overload
+    _check_overload_body(func)
+  File "/usr/local/lib/python3.7/dist-packages/torch/_jit_internal.py", line 747, in _check_overload_body
+    parsed_def = parse_def(func)
+  File "/usr/local/lib/python3.7/dist-packages/torch/_sources.py", line 96, in parse_def
+    sourcelines, file_lineno, filename = get_source_lines_and_file(fn, ErrorReport.call_stack())
+  File "/usr/local/lib/python3.7/dist-packages/torch/_sources.py", line 21, in get_source_lines_and_file
+    sourcelines, file_lineno = inspect.getsourcelines(obj)
+  File "/usr/lib/python3.7/inspect.py", line 955, in getsourcelines
+    lines, lnum = findsource(object)
+  File "/usr/lib/python3.7/inspect.py", line 782, in findsource
+    lines = linecache.getlines(file, module.__dict__)
+  File "/usr/lib/python3.7/linecache.py", line 47, in getlines
+    return updatecache(filename, module_globals)
+  File "/usr/lib/python3.7/linecache.py", line 137, in updatecache
+    lines = fp.readlines()
+  File "/usr/lib/python3.7/codecs.py", line 319, in decode
+    def decode(self, input, final=False):
+KeyboardInterrupt

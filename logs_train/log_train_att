@@ -1,0 +1,206 @@
+[94m-------------------------------------------------[0m
+[94m---  Start program 2022-11-26 17:53:11.333886 ---[0m
+[94m-------------------------------------------------[0m
+[94mLoad module: config[0m
+[94mLoad module: model[0m
+okok
+[94m--------------------------------------------------------------------[0m
+[94m---  Loading dataset asvspoof2019_trn 2022-11-26 17:53:11.637857 ---[0m
+[94m--------------------------------------------------------------------[0m
+[94mRead sequence info: ./asvspoof2019_trn_utt_length.dic[0m
+ok eval
+[94m--------------------------------------------------------------------[0m
+[94m---  Loading dataset asvspoof2019_val 2022-11-26 17:53:28.953283 ---[0m
+[94m--------------------------------------------------------------------[0m
+[94mRead sequence info: ./asvspoof2019_val_utt_length.dic[0m
+[94m--------------------------------------------------------[0m
+[94m---  Start model training 2022-11-26 17:54:28.870361 ---[0m
+[94m--------------------------------------------------------[0m
+Optimizer:
+  Type: Adam 
+  Learing rate: 0.000300
+  Epochs: 50
+  No-best-epochs: 10
+  LR scheduler, StepLR [gamma 0.500000, step 5]
+Dataset asvspoof2019_trn:
+  Time steps: 3408288596 
+  Data sequence num: 38791
+  Maximum sequence length: 226645
+  Minimum sequence length: 23800
+  Inputs
+    Dirs:
+        /content/drive/MyDrive/Tesis/anti-spoof-eval/03-asvspoof-mega/DATA/asvspoof2019_LA/train_dev
+    Exts:['.wav']
+    Dims:[1]
+    Reso:[1]
+    Norm:[False]
+  Outputs
+    Dirs:
+    Exts:['.bin']
+    Dims:[1]
+    Reso:[1]
+    Norm:[False]
+{'batch_size': 64, 'shuffle': True, 'num_workers': 3, 'sampler': 'block_shuffle_by_length'}
+Dataset asvspoof2019_val:
+  Time steps: 852995220 
+  Data sequence num: 9698
+  Maximum sequence length: 207530
+  Minimum sequence length: 23510
+  Inputs
+    Dirs:
+        /content/drive/MyDrive/Tesis/anti-spoof-eval/03-asvspoof-mega/DATA/asvspoof2019_LA/train_dev
+    Exts:['.wav']
+    Dims:[1]
+    Reso:[1]
+    Norm:[False]
+  Outputs
+    Dirs:
+    Exts:['.bin']
+    Dims:[1]
+    Reso:[1]
+    Norm:[False]
+{'batch_size': 64, 'shuffle': True, 'num_workers': 3, 'sampler': 'block_shuffle_by_length'}
+[94m
+Use single GPU: A100-SXM4-40GB
+[0m
+[94mModel check:[0m
+[OK]: prepare_mean_std found
+[OK]: normalize_input found
+[OK]: normalize_target found
+[OK]: denormalize_output found
+[OK]: forward found
+[OK]: inference is ignored, alternative method for inference
+[OK]: loss is ignored, loss defined within model module
+[OK]: other_setups is ignored, other setup functions before training
+[OK]: flag_validation is ignored, flag to indicate train or validation set
+[OK]: use validation, deprecated. Please use model.flag_validation
+[OK]: finish_up_inference is ignored, method to finish up work after inference
+[94mModel check done
+[0m
+[94mModel infor:[0m
+Model(
+  (m_frontend): ModuleList(
+    (0): LFCC(
+      (l_dct): LinearDCT(in_features=20, out_features=20, bias=False)
+    )
+  )
+  (m_transform): ModuleList(
+    (0): Sequential(
+      (0): Conv2d(1, 64, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+      (1): MaxFeatureMap2D()
+      (2): MaxPool2d(kernel_size=[2, 2], stride=[2, 2], padding=0, dilation=1, ceil_mode=False)
+      (3): Conv2d(32, 64, kernel_size=(1, 1), stride=(1, 1))
+      (4): MaxFeatureMap2D()
+      (5): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=True)
+      (6): Conv2d(32, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (7): MaxFeatureMap2D()
+      (8): MaxPool2d(kernel_size=[2, 2], stride=[2, 2], padding=0, dilation=1, ceil_mode=False)
+      (9): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=False, track_running_stats=True)
+      (10): Conv2d(48, 96, kernel_size=(1, 1), stride=(1, 1))
+      (11): MaxFeatureMap2D()
+      (12): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=False, track_running_stats=True)
+      (13): Conv2d(48, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (14): MaxFeatureMap2D()
+      (15): MaxPool2d(kernel_size=[2, 2], stride=[2, 2], padding=0, dilation=1, ceil_mode=False)
+      (16): Conv2d(64, 128, kernel_size=(1, 1), stride=(1, 1))
+      (17): MaxFeatureMap2D()
+      (18): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=True)
+      (19): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (20): MaxFeatureMap2D()
+      (21): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=True)
+      (22): Conv2d(32, 64, kernel_size=(1, 1), stride=(1, 1))
+      (23): MaxFeatureMap2D()
+      (24): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=True)
+      (25): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (26): MaxFeatureMap2D()
+      (27): MaxPool2d(kernel_size=[2, 2], stride=[2, 2], padding=0, dilation=1, ceil_mode=False)
+      (28): Dropout(p=0.7, inplace=False)
+    )
+  )
+  (m_output_act): ModuleList(
+    (0): Linear(in_features=192, out_features=64, bias=True)
+  )
+  (m_pooling): ModuleList(
+    (0): SelfWeightedPooling()
+  )
+  (m_angle): ModuleList(
+    (0): P2SActivationLayer()
+  )
+)
+Parameter number: 170080
+
+[94mLoss check[0m
+[94mLoss check done[0m
+[94mLoad pretrained model[0m
+--------------------------------------------------------------
+  Epoch |  Duration(s) |   Train loss |     Dev loss |  Best
+--------------------------------------------------------------
+[91mWarning: model.validation is deprecated, please use model.g_flag_validation[0m
+[91mWarning: model.validation is deprecated, please use model.flag_validation[0m
+      0 |        509.7 |       0.0433 |       0.0124 |   yes
+[91mWarning: model.validation is deprecated, please use model.g_flag_validation[0m
+[91mWarning: model.validation is deprecated, please use model.flag_validation[0m
+      1 |         44.0 |       0.0072 |       0.0069 |   yes
+[91mWarning: model.validation is deprecated, please use model.g_flag_validation[0m
+[91mWarning: model.validation is deprecated, please use model.flag_validation[0m
+      2 |         46.1 |       0.0031 |       0.0018 |   yes
+[91mWarning: model.validation is deprecated, please use model.g_flag_validation[0m
+[91mWarning: model.validation is deprecated, please use model.flag_validation[0m
+      3 |         45.2 |       0.0024 |       0.0091 |    no
+[91mWarning: model.validation is deprecated, please use model.g_flag_validation[0m
+[91mWarning: model.validation is deprecated, please use model.flag_validation[0m
+      4 |         44.9 |       0.0020 |       0.0018 |   yes  LR -> 1.50e-04 
+[91mWarning: model.validation is deprecated, please use model.g_flag_validation[0m
+[91mWarning: model.validation is deprecated, please use model.flag_validation[0m
+      5 |         45.3 |       0.0007 |       0.0010 |   yes  LR -> 1.50e-04 
+[91mWarning: model.validation is deprecated, please use model.g_flag_validation[0m
+[91mWarning: model.validation is deprecated, please use model.flag_validation[0m
+      6 |         45.6 |       0.0005 |       0.0008 |   yes  LR -> 1.50e-04 
+[91mWarning: model.validation is deprecated, please use model.g_flag_validation[0m
+[91mWarning: model.validation is deprecated, please use model.flag_validation[0m
+      7 |         45.7 |       0.0003 |       0.0005 |   yes  LR -> 1.50e-04 
+[91mWarning: model.validation is deprecated, please use model.g_flag_validation[0m
+[91mWarning: model.validation is deprecated, please use model.flag_validation[0m
+      8 |         46.5 |       0.0004 |       0.0013 |    no  LR -> 1.50e-04 
+[91mWarning: model.validation is deprecated, please use model.g_flag_validation[0m
+[91mWarning: model.validation is deprecated, please use model.flag_validation[0m
+      9 |         47.7 |       0.0002 |       0.0003 |   yes  LR -> 7.50e-05 
+[91mWarning: model.validation is deprecated, please use model.g_flag_validation[0m
+[91mWarning: model.validation is deprecated, please use model.flag_validation[0m
+     10 |         47.0 |       0.0001 |       0.0003 |   yes  LR -> 7.50e-05 
+[91mWarning: model.validation is deprecated, please use model.g_flag_validation[0m
+[91mWarning: model.validation is deprecated, please use model.flag_validation[0m
+     11 |         47.4 |       0.0001 |       0.0002 |   yes  LR -> 7.50e-05 
+[91mWarning: model.validation is deprecated, please use model.g_flag_validation[0m
+[91mWarning: model.validation is deprecated, please use model.flag_validation[0m
+     12 |         47.7 |       0.0000 |       0.0003 |    no  LR -> 7.50e-05 
+[91mWarning: model.validation is deprecated, please use model.g_flag_validation[0m
+[91mWarning: model.validation is deprecated, please use model.flag_validation[0m
+     13 |         45.9 |       0.0002 |       0.0041 |    no  LR -> 7.50e-05 
+[91mWarning: model.validation is deprecated, please use model.g_flag_validation[0m
+[91mWarning: model.validation is deprecated, please use model.flag_validation[0m
+     14 |         47.5 |       0.0003 |       0.0004 |    no  LR -> 3.75e-05 
+[91mWarning: model.validation is deprecated, please use model.g_flag_validation[0m
+[91mWarning: model.validation is deprecated, please use model.flag_validation[0m
+     15 |         45.7 |       0.0001 |       0.0003 |    no  LR -> 3.75e-05 
+[91mWarning: model.validation is deprecated, please use model.g_flag_validation[0m
+[91mWarning: model.validation is deprecated, please use model.flag_validation[0m
+     16 |         48.5 |       0.0000 |       0.0003 |    no  LR -> 3.75e-05 
+[91mWarning: model.validation is deprecated, please use model.g_flag_validation[0m
+[91mWarning: model.validation is deprecated, please use model.flag_validation[0m
+     17 |         47.5 |       0.0000 |       0.0004 |    no  LR -> 3.75e-05 
+[91mWarning: model.validation is deprecated, please use model.g_flag_validation[0m
+[91mWarning: model.validation is deprecated, please use model.flag_validation[0m
+     18 |         47.1 |       0.0001 |       0.0004 |    no  LR -> 3.75e-05 
+[91mWarning: model.validation is deprecated, please use model.g_flag_validation[0m
+[91mWarning: model.validation is deprecated, please use model.flag_validation[0m
+     19 |         47.4 |       0.0000 |       0.0003 |    no  LR -> 1.87e-05 
+[91mWarning: model.validation is deprecated, please use model.g_flag_validation[0m
+[91mWarning: model.validation is deprecated, please use model.flag_validation[0m
+     20 |         49.5 |       0.0000 |       0.0002 |    no  LR -> 1.87e-05 
+[91mWarning: model.validation is deprecated, please use model.g_flag_validation[0m
+[91mWarning: model.validation is deprecated, please use model.flag_validation[0m
+     21 |         49.0 |       0.0000 |       0.0003 |    no  LR -> 1.87e-05 
+--------------------------------------------------------------
+[94mTraining finished by early stopping[0m
+[94mModel is saved to[0m[94m./trained_network.pt[0m
